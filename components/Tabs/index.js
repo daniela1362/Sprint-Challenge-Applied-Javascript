@@ -11,28 +11,22 @@
 const topic = document.querySelector('.topic');
 
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
-.then(data =>{
-    console.log('response', data)
-    const topicData= data.data;
-    const topic = document.querySelector('.topic';
-    topic.appendChild(topicData));
-})
-.catch( err => {
-    console.log('Error retrieving data',err)
-});
+    .then(data => {
+        console.log('response', x.data.topics)
+        const xTopic = x.data.topics;
+        xTopic.forEach(word => {
+            tabComponent(word)
+        })
+    })
 
-function newTabs(object){
-    const tab = document.createElement('div');
-    const topic = document.createElement('div');
-    const title = document.createElement('span');
-}
+    .catch(error => {
+        console.log('Error!')
+    })
 
-tab.appendChild(topic);
-tab.appendChild(title);
-
-tab.classList.add('tab, topic');
-topic.classList.add('title')
-
-title.textContent = object.topic;
-return tab;
+function tabComponent(arr) {
+    const Item = document.createElement('div');
+    Item.classList.add('tab');
+    Item.textContent = arr
+    topicDiv.appendChild(Item)
+    return Item;
 }

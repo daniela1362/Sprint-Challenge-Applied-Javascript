@@ -18,58 +18,42 @@
 //
 // Create a card for each of the articles and add the card to the DOM.
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
-    .then(response=>{
+    .then(response => {
         cardMaker(response.data);
     })
-    .catch(error=>{
+    .catch(error => {
         console.log("this is an error", error);
     })
+function component(obj, c) {
+    obj.forEach(x => {
+        let card = document.createElement('div');
+        card.classList.add('card');
+        cards.appendChild(card);
 
-function cardMaker(data){
+        let headline = document.createElement('div');
+        headline.classList.add('headline');
+        headline.textContent = x.headline;
+        card.appendChild(headline);
 
-    //make elements
+        let name = document.createElement('div');
+        name.classList.add('author');
+        card.appendChild(name);
 
-    console.log(data); 
+        let imgContainer = document.createElement('div');
+        imgContainer.classList.add('img-container');
+        name.appendChild(imgContainer);
 
-    console.log(data['articles']['bootstrap']);
-    for(topic in data.articles){
-
-        data['articles'][topic].forEach(element => {
-            //create element
-            let card = document.createElement('div');
-            let headline = document.createElement('div');
-            let author = document.createElement('div');
-            let imgCont = document.createElement('div');
-            let img = document.createElement('img');
-            let name = document.createElement('span');
-
-            //add classes
-            card.classList.add('card');
-            headline.classList.add('headline');
-            author.classList.add('author');
-            imgCont.classList.add('img-container');
-
-            //add content and src
-            headline.textContent = data['articles'][topic]['headline'];
-            name.textContent = data['articles'][topic]['authorName'];
-            img.setAttribute('src', data['articles'][topic]['authorPhoto']);
-
-            //appending
-            card.appendChild(headline);
-            card.appendChild(author);
-            author.appendChild(name);
-            author.appendChild(imgCont);
-            imgCont.appendChild(img);
-
-            //big append
-            let cardCont = document.querySelector('.cards-container');
-            cardCont.appendChild(card);
+        let image = document.createElement('img');
+        image.src = x.authorPhoto;
+        imgContainer.appendChild(image);
 
 
-        });
+        let author = document.createElement('span');
+        author.textContent = `by: ${x.authorName}`;
+        name.appendChild(author);
 
-
+    });
+}
 
 
     }
-
